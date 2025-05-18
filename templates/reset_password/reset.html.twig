@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+    <div class="max-w-md mx-auto mt-20 p-8 bg-gray-900 rounded-lg shadow-lg text-white">
+        <h1 class="text-3xl font-bold mb-8">Réinitialiser votre mot de passe</h1>
+
+        {{ form_start(resetForm, {'attr': {'class': 'space-y-6'}}) }}
+        <div>
+            {{ form_label(resetForm.plainPassword, null, {'label_attr': {'class': 'block text-sm font-semibold text-green-500 mb-2'}}) }}
+            {{ form_widget(resetForm.plainPassword, {'attr': {
+                'class': 'w-full rounded-md bg-gray-800 border border-gray-700 text-white
+                          placeholder-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-500
+                          focus:outline-none p-3 transition duration-200 ease-in-out'
+            }}) }}
+            {{ form_errors(resetForm.plainPassword, {'attr': {'class': 'text-red-500 mt-1 text-sm'}}) }}
+        </div>
+
+        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 font-bold py-3 rounded-md transition duration-300">
+            Reset password
+        </button>
+        {{ form_end(resetForm) }}
+    </div>
+{% endblock %}

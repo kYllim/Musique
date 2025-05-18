@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des commentaires{% endblock %}
+
+{% block body %}
+    <div class="max-w-6xl mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-3xl font-bold mb-6 text-green-500 text-center">Liste des commentaires</h1>
+
+        <table class="w-full table-auto border-collapse text-left bg-gray-800 rounded-lg overflow-hidden">
+            <thead>
+            <tr class="bg-gray-700 text-gray-300">
+                <th class="py-2 px-4">Id</th>
+                <th class="py-2 px-4">Contenu</th>
+                <th class="py-2 px-4">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for comment in comments %}
+                <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                    <td class="py-2 px-4">{{ comment.id }}</td>
+                    <td class="py-2 px-4">{{ comment.content }}</td>
+                    <td class="py-2 px-4 space-x-2">
+                        <a href="{{ path('app_comment_show', {'id': comment.id}) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded transition">Voir</a>
+                        <a href="{{ path('app_comment_edit', {'id': comment.id}) }}" class="bg-yellow-500 hover:bg-yellow-600 text-black px-3 py-1 rounded transition">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="py-4 text-center text-gray-400 italic">Aucun commentaire trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-center mt-6">
+            <a href="{{ path('app_comment_new') }}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition">
+                Créer un nouveau commentaire
+            </a>
+        </div>
+    </div>
+{% endblock %}

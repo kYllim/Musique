@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Artiste{% endblock %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-3xl font-bold mb-6 text-center">Détails de l'Artiste</h1>
+
+        <div class="flex items-center space-x-6">
+            {% if artist.photo %}
+                <img src="{{ asset('images/' ~ artist.photo) }}" alt="Photo de {{ artist.name }}" class="h-32 w-32 rounded-full object-cover">
+            {% else %}
+                <div class="h-32 w-32 bg-gray-700 rounded-full flex items-center justify-center text-gray-400">
+                    Pas de photo
+                </div>
+            {% endif %}
+            <div>
+                <h2 class="text-2xl font-semibold">{{ artist.name }}</h2>
+                <p class="text-gray-400 mt-2">Id: {{ artist.id }}</p>
+                <p class="text-gray-400 mt-2">Nombre d'albums: {{ artist.albums|length }}</p>
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-between">
+            <a href="{{ path('app_artist_index') }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">Retour à la liste</a>
+            <a href="{{ path('app_artist_edit', {'id': artist.id}) }}" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition">Modifier</a>
+            {{ include('artist/_delete_form.html.twig', { 'button_class': 'bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition' }) }}
+        </div>
+    </div>
+{% endblock %}

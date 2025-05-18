@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Playlists{% endblock %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-3xl font-bold mb-6 text-center">Liste des Playlists</h1>
+
+        <table class="w-full text-left border-collapse">
+            <thead>
+            <tr class="bg-gray-800">
+                <th class="p-4 border-b border-gray-700">ID</th>
+                <th class="p-4 border-b border-gray-700">Nom</th>
+                <th class="p-4 border-b border-gray-700">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for playlist in playlists %}
+                <tr class="hover:bg-gray-700">
+                    <td class="p-4 border-b border-gray-700">{{ playlist.id }}</td>
+                    <td class="p-4 border-b border-gray-700">{{ playlist.name }}</td>
+                    <td class="p-4 border-b border-gray-700 space-x-2">
+                        <a href="{{ path('app_playlist_show', {'id': playlist.id}) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Voir</a>
+                        <a href="{{ path('app_playlist_edit', {'id': playlist.id}) }}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="p-4 text-center text-gray-400">Aucune playlist trouvée.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mt-6 text-center">
+            <a href="{{ path('app_playlist_new') }}" class="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">Créer une nouvelle playlist</a>
+        </div>
+    </div>
+{% endblock %}

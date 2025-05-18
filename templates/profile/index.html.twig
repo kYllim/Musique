@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <div class="max-w-md mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-2xl font-semibold mb-6">Profil</h1>
+
+        <div class="flex items-center space-x-4">
+            <img
+                src="{{ asset('images/' ~ user.profilePicture) }}"
+                alt="Profile Picture"
+                class="w-16 h-16 rounded-full"
+            >
+            <div>
+                <div class="text-lg font-bold">{{ user.firstName }} {{ user.lastName }}</div>
+                <div class="text-sm text-gray-400">{{ user.email }}</div>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <strong>Roles:</strong> {{ user.roles|join(', ') }}
+        </div>
+
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold mb-4">Mes playlists</h2>
+            {% if playlists is not empty %}
+                <ul class="space-y-2">
+                    {% for playlist in playlists %}
+                        <li class="bg-gray-800 p-4 rounded shadow">
+                            <strong>{{ playlist.name }}</strong>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-400 italic">Vous n'avez pas encore de playlist</p>
+            {% endif %}
+        </div>
+
+        <a href="{{ path('app_logout') }}" class="text-green-400 hover:underline mt-4 block">Déconnexion</a>
+    </div>
+{% endblock %}

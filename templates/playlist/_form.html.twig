@@ -1,0 +1,6 @@
+{{ form_start(form, { 'attr': { 'class': 'space-y-4' } }) }}
+    {{ form_widget(form, { 'attr': { 'class': 'w-full bg-gray-800 text-white rounded-lg p-4' } }) }}
+<button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition">
+    {{ button_label|default('Sauvegarder') }}
+</button>
+{{ form_end(form) }}

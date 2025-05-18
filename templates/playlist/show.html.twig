@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Playlist{% endblock %}
+
+{% block body %}
+    <div class="max-w-2xl mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-3xl font-bold mb-6 text-green-500">Détails de la Playlist</h1>
+
+        <table class="w-full table-auto text-left border-collapse mb-6">
+            <tbody>
+            <tr class="border-b border-gray-700">
+                <th class="py-2 pr-4 text-gray-400">ID</th>
+                <td class="py-2">{{ playlist.id }}</td>
+            </tr>
+            <tr>
+                <th class="py-2 pr-4 text-gray-400">Nom</th>
+                <td class="py-2">{{ playlist.name }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="flex space-x-4">
+            <a href="{{ path('app_playlist_index') }}"
+               class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded transition">
+                Retour à la liste
+            </a>
+
+            <a href="{{ path('app_playlist_edit', {'id': playlist.id}) }}"
+               class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded transition">
+                Modifier
+            </a>
+
+            {{ include('playlist/_delete_form.html.twig', { 'button_class': 'bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition' }) }}
+        </div>
+    </div>
+{% endblock %}

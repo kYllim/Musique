@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1 class="text-3xl font-bold mb-6">Bienvenue sur notre plateforme musicale !</h1>
+
+    {% if searchTerm %}
+        <section class="mt-8">
+            <h2 class="text-2xl font-bold mb-4 text-green-500">Résultats des artistes</h2>
+            {% if artists is not empty %}
+                <ul class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {% for artist in artists %}
+                        <li class="bg-gray-900 rounded-lg p-4 shadow hover:shadow-lg transition text-center">
+                            {% if artist.photo %}
+                                <img src="{{ asset('images/' ~ artist.photo) }}" alt="{{ artist.name }}" class="mx-auto h-32 w-32 object-cover rounded-full mb-3">
+                            {% endif %}
+                            <p class="text-white text-lg font-semibold">{{ artist.name }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-400 italic">Aucun artiste trouvé</p>
+            {% endif %}
+        </section>
+
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold mb-4 text-green-500">Résultats des albums</h2>
+            {% if albums is not empty %}
+                <ul class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {% for album in albums %}
+                        <li class="bg-gray-900 rounded-lg p-4 shadow hover:shadow-lg transition text-center">
+                            {% if album.coverImage %}
+                                <img src="{{ asset('images/' ~ album.coverImage) }}" alt="{{ album.title }}" class="mx-auto h-32 w-32 object-cover rounded mb-3">
+                            {% endif %}
+                            <p class="text-white font-semibold">{{ album.title }}</p>
+                            <p class="text-gray-400 text-sm">par {{ album.artist.name }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-400 italic">Aucun album trouvé</p>
+            {% endif %}
+        </section>
+    {% else %}
+    {% if not is_granted('ROLE_BANNED') %}
+        <p class="mt-8 text-gray-400 italic text-center">Faites une recherche pour afficher les résultats.</p>
+    {% endif %}
+
+    {% endif %}
+
+    {% if is_granted('ROLE_BANNED') %}
+        <div class="bg-red-600 text-white p-4 rounded mt-6">
+            Votre compte a été suspendu. Contactez l’administrateur.
+        </div>
+    {% else %}
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold mb-4 text-green-500">Tous les albums</h2>
+            {% if albums is not empty %}
+                <ul class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {% for album in albums %}
+                        <li class="bg-gray-900 rounded-lg p-4 shadow hover:shadow-lg transition text-center">
+                            {% if album.coverImage %}
+                                <img src="{{ asset('images/' ~ album.coverImage) }}" alt="{{ album.title }}" class="mx-auto h-32 w-32 object-cover rounded mb-3">
+                            {% endif %}
+                            <a href="{{ path('app_album_show', {'id': album.id}) }}" class="text-white font-semibold hover:underline">
+                                {{ album.title }}
+                            </a>
+                            <p class="text-gray-400 text-sm">par {{ album.artist.name }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-400 italic">Aucun album trouvé</p>
+            {% endif %}
+        </section>
+    <section class="mt-16 bg-gray-900 p-8 rounded-lg shadow-md text-white">
+        <h2 class="text-2xl font-bold mb-4">Tous les commentaires</h2>
+
+        {% if comments is empty %}
+            <p class="text-gray-400">Aucun commentaire disponible.</p>
+        {% else %}
+            <ul class="space-y-4">
+                {% for comment in comments %}
+                    <li class="bg-gray-800 p-4 rounded">
+                        <div class="text-sm text-gray-400 mb-1">
+                            Posté par <strong>{{ comment.userComment ? comment.userComment.pseudo : 'Anonyme' }}</strong>
+                            sur l'album <em>{{ comment.album ? comment.album.title : 'Inconnu' }}</em>
+                        </div>
+                        <p class="text-white">{{ comment.content }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+    {% endif %}
+
+{% endblock %}

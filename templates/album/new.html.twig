@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Nouvel Album{% endblock %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-3xl font-bold mb-6">Créer un Nouvel Album</h1>
+
+        {{ include('album/_form.html.twig', {'button_label': 'Créer'}) }}
+
+        <a href="{{ path('app_album_index') }}" class="text-blue-400 hover:underline">Retour à la liste</a>
+    </div>
+{% endblock %}

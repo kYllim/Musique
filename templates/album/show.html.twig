@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Album{% endblock %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-3xl font-bold mb-6">Détails de l'Album</h1>
+
+        <div class="mb-4">
+            <strong>Id:</strong> {{ album.id }}
+        </div>
+        <div class="mb-4">
+            <strong>Titre:</strong> {{ album.title }}
+        </div>
+
+        <a href="{{ path('app_album_index') }}" class="text-blue-400 hover:underline">Retour à la liste</a>
+        <a href="{{ path('app_album_edit', {'id': album.id}) }}" class="text-yellow-400 hover:underline ml-4">Modifier</a>
+
+        {{ include('album/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

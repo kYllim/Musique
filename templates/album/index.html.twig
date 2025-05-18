@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Albums{% endblock %}
+
+{% block body %}
+    <div class="max-w-4xl mx-auto mt-16 p-8 bg-gray-900 rounded-lg shadow-md text-white">
+        <h1 class="text-3xl font-bold mb-6">Liste des Albums</h1>
+
+        <table class="w-full text-left border-collapse">
+            <thead>
+            <tr class="bg-gray-800">
+                <th class="p-4 border-b border-gray-700">Id</th>
+                <th class="p-4 border-b border-gray-700">Image</th>
+                <th class="p-4 border-b border-gray-700">Titre</th>
+                <th class="p-4 border-b border-gray-700">Artiste</th>
+                <th class="p-4 border-b border-gray-700">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for album in albums %}
+                <tr class="hover:bg-gray-700">
+                    <td class="p-4 border-b border-gray-700">{{ album.id }}</td>
+                    <td class="p-4 border-b border-gray-700">
+                        <img src="{{ asset('images/' ~ album.coverImage) }}" alt="Cover Image" class="w-xs h-xs object-cover rounded">
+                    </td>
+                    <td class="p-4 border-b border-gray-700">{{ album.title }}</td>
+                    <td class="p-4 border-b border-gray-700">{{ album.artist.name }}</td>
+                    <td class="p-4 border-b border-gray-700">
+                        <a href="{{ path('app_album_show', {'id': album.id}) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Voir</a>
+                        <a href="{{ path('app_album_edit', {'id': album.id}) }}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 ml-2">Modifier</a>
+                        {{ include('album/_delete_form.html.twig', { 'button_class': 'bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-2' }) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="p-4 text-center text-gray-400">Aucun album trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_album_new') }}" class="mt-6 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Créer un nouvel album</a>
+    </div>
+{% endblock %}
